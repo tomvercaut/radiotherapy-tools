@@ -34,8 +34,8 @@ public record RangedTag(
      * @param element DICOM tag element
      * @return True if the group value is within the group range and the element value is within the element range.
      */
-    public boolean isWithin(int group, int element) {
-        return this.group.isWithin(group) && this.element.isWithin(element);
+    public boolean contains(int group, int element) {
+        return this.group.contains(group) && this.element.contains(element);
     }
 
     /**

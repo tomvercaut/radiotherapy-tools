@@ -51,7 +51,7 @@ public record Range(
      * @param value group or element value of a DICOM tag
      * @return True if the group or element value provided is within this range.
      */
-    public boolean isWithin(int value) {
+    public boolean contains(int value) {
         return (!isRanged()) ? min == value : (min <= value && value <= max);
     }
 

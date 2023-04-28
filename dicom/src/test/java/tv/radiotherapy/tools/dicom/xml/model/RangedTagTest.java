@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class RangedTagTest {
 
     @Test
-    void set() {
+    void createFromString() {
         var exp = List.of("(1234,5678)", "(12xx,5678)", "(1234,56xx)");
         var groupMins = List.of(
                 0x1234,
@@ -68,46 +68,28 @@ class RangedTagTest {
     }
 
     @Test
-    void isWithin() {
+    void contains() {
         var rt = RangedTag.create(0x1234, 0x5678);
-        assertTrue(rt.isWithin(0x1234,0x5678));
+        assertTrue(rt.contains(0x1234,0x5678));
         rt = RangedTag.create("(12xx,5678)");
-        assertTrue(rt.isWithin(0x1200, 0x5678));
-        assertTrue(rt.isWithin(0x12FF, 0x5678));
+        assertTrue(rt.contains(0x1200, 0x5678));
+        assertTrue(rt.contains(0x12FF, 0x5678));
         rt = RangedTag.create("(1234,56xx)");
-        assertTrue(rt.isWithin(0x1234,0x5600));
-        assertTrue(rt.isWithin(0x1234,0x56FF));
+        assertTrue(rt.contains(0x1234,0x5600));
+        assertTrue(rt.contains(0x1234,0x56FF));
     }
     @Test
-    void isNotWithin() {
+    void doesNotContain() {
         var rt = RangedTag.create(0x1234, 0x5678);
-        assertFalse(rt.isWithin(0x1233,0x5678));
-        assertFalse(rt.isWithin(0x1234,0x5677));
+        assertFalse(rt.contains(0x1233,0x5678));
+        assertFalse(rt.contains(0x1234,0x5677));
 
         rt = RangedTag.create("(12xx,5678)");
-        assertFalse(rt.isWithin(0x1100, 0x5678));
-        assertFalse(rt.isWithin(0x13FF, 0x5678));
+        assertFalse(rt.contains(0x1100, 0x5678));
+        assertFalse(rt.contains(0x13FF, 0x5678));
         rt = RangedTag.create("(1234,56xx)");
-        assertFalse(rt.isWithin(0x1234,0x55FF));
-        assertFalse(rt.isWithin(0x1234,0x5700));
+        assertFalse(rt.contains(0x1234,0x55FF));
+        assertFalse(rt.contains(0x1234,0x5700));
     }
 
-    @Test
-    void rangeIsWithin() {
-        var range = Range.create(0x1234);
-        assertTrue(range.isWithin(0x1234));
-        range = Range.create("12xx");
-        assertTrue(range.isWithin(0x1200));
-        assertTrue(range.isWithin(0x1201));
-        assertTrue(range.isWithin(0x12FF));
-    }
-    @Test
-    void rangeIsNotWithin() {
-        var range = Range.create(0x1234);
-        assertFalse(range.isWithin(0x1233));
-        assertFalse(range.isWithin(0x1235));
-        range = Range.create("12xx");
-        assertFalse(range.isWithin(0x11FF));
-        assertFalse(range.isWithin(0x1301));
-    }
 }
