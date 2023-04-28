@@ -5,21 +5,23 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import tv.radiotherapy.tools.dicom.xml.model.OLink;
-import tv.radiotherapy.tools.dicom.xml.model.UidRegistry;
+import tv.radiotherapy.tools.dicom.xml.model.UidRegistryItem;
 
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import java.util.ArrayList;
+import java.util.List;
 
-public class UidRegistryParser implements Parser<UidRegistry> {
+public class UidRegistryParser implements Parser<List<UidRegistryItem>> {
     @Override
-    public UidRegistry parse(@NotNull Element element) throws ParserException, XPathExpressionException {
-        var registry = new UidRegistry();
+    public List<UidRegistryItem> parse(@NotNull Element element) throws ParserException, XPathExpressionException {
+        var registry = new ArrayList<UidRegistryItem>();
         build(element, registry, "table_A-1");
         return registry;
     }
 
-    private void build(@NotNull Element root, @NotNull UidRegistry registry, @NotNull String tableId) throws XPathExpressionException, IllegalArgumentException, NullPointerException, ParserException {
+    private void build(@NotNull Element root, @NotNull List<UidRegistryItem> registry, @NotNull String tableId) throws XPathExpressionException, IllegalArgumentException, NullPointerException, ParserException {
         // Find table by id.
         final Node table = TableHelper.findById(root, tableId);
         // Extract table rows and iterate the rows.
@@ -49,7 +51,7 @@ public class UidRegistryParser implements Parser<UidRegistry> {
             } else {
                 olink = olinkParser.parse(olinkElement);
             }
-            registry.add(new UidRegistry.Item(uid, name, keyword, uidType, olink));
+            registry.add(new UidRegistryItem(uid, name, keyword, uidType, olink));
         }
     }
 }

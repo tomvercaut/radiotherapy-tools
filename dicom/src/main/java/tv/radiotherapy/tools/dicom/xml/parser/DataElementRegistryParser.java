@@ -4,17 +4,19 @@ import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import tv.radiotherapy.tools.dicom.xml.model.DataElementRegistry;
+import tv.radiotherapy.tools.dicom.xml.model.DataElementRegistryItem;
 import tv.radiotherapy.tools.dicom.xml.model.RangedTag;
 import tv.radiotherapy.tools.dicom.xml.model.VR;
 
 import javax.xml.xpath.XPathExpressionException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DataElementRegistryParser implements Parser<DataElementRegistry> {
+public class DataElementRegistryParser implements Parser<List<DataElementRegistryItem>> {
 
     @Override
-    public DataElementRegistry parse(@NotNull Element element) throws ParserException, XPathExpressionException, IllegalArgumentException, NullPointerException {
-        var registry = new DataElementRegistry();
+    public List<DataElementRegistryItem> parse(@NotNull Element element) throws ParserException, XPathExpressionException, IllegalArgumentException, NullPointerException {
+        var registry = new ArrayList<DataElementRegistryItem>();
         build(element, registry, "table_6-1");
         build(element, registry, "table_7-1");
         build(element, registry, "table_8-1");
@@ -22,7 +24,7 @@ public class DataElementRegistryParser implements Parser<DataElementRegistry> {
         return registry;
     }
 
-    private void build(@NotNull Element root, @NotNull DataElementRegistry registry, @NotNull String tableId) throws XPathExpressionException, IllegalArgumentException, ParserException {
+    private void build(@NotNull Element root, @NotNull List<DataElementRegistryItem> registry, @NotNull String tableId) throws XPathExpressionException, IllegalArgumentException, ParserException {
         // Find table by id.
         final Node table = TableHelper.findById(root, tableId);
         // Extract table rows and iterate the rows.
@@ -54,7 +56,7 @@ public class DataElementRegistryParser implements Parser<DataElementRegistry> {
             var vm = InnerText.get(tds.item(4));
             var desc = InnerText.get(tds.item(5));
             registry.add(
-                    new DataElementRegistry.Item(
+                    new DataElementRegistryItem(
                             tag, name, keyword, vr, lvr, vm, desc
                     ));
         }
