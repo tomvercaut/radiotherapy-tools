@@ -1,6 +1,5 @@
 package tv.radiotherapy.tools.dicom.xml.model;
 
-import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -177,15 +176,14 @@ public class DataElementRegistry implements List<DataElementRegistry.Item> {
         il.forEach(action);
     }
 
-    @Data
-    public static class Item {
-        private RangedTag tag = new RangedTag();
-        private String name = "";
-        private String keyword = "";
-        private VR vr = VR.NONE;
-        private List<VR> ovr = new ArrayList<>(0);
-        private String vm = "";
-        private String desc = "";
+    public record Item(
+            RangedTag tag,
+            String name,
+            String keyword,
+            VR vr,
+            List<VR> ovr,
+            String vm,
+            String desc) {
 
         public boolean isRetired() {
             return desc.contains("RET");

@@ -37,96 +37,76 @@ class RangedTagTest {
         assertEquals(n, groupMaxs.size());
         assertEquals(n, ranges.size());
         for (int i = 0; i < n; i++) {
-            var rt = new RangedTag();
-            rt.set(exp.get(i));
-            assertEquals(groupMins.get(i), rt.getGroup().getMin());
-            assertEquals(groupMaxs.get(i), rt.getGroup().getMax());
-            assertEquals(elementsMins.get(i), rt.getElement().getMin());
-            assertEquals(elementsMaxs.get(i), rt.getElement().getMax());
+            var rt = RangedTag.create(exp.get(i));
+            assertEquals(groupMins.get(i), rt.group().min());
+            assertEquals(groupMaxs.get(i), rt.group().max());
+            assertEquals(elementsMins.get(i), rt.element().min());
+            assertEquals(elementsMaxs.get(i), rt.element().max());
             assertEquals(ranges.get(i), rt.isRanged());
         }
     }
 
     @Test
-    void getGroup() {
-        var rt = new RangedTag();
-        rt.set(0x1234, 0x5678);
-        var rng = new RangedTag.Range();
-        rng.set(0x1234);
-        assertEquals(rng, rt.getGroup());
-    }
-
-    @Test
     void getGroupRanged() {
-        var rt = new RangedTag();
-        rt.set("(12xx,5678)");
-        var rng = new RangedTag.Range();
-        rng.set("0x12xx");
-        assertEquals(rng, rt.getGroup());
+        var rt = RangedTag.create("(12xx,5678)");
+        var rng = Range.create("0x12xx");
+        assertEquals(rng, rt.group());
     }
 
     @Test
     void getElement() {
-        var rt = new RangedTag();
-        rt.set(0x1234, 0x5678);
-        var rng = new RangedTag.Range();
-        rng.set(0x5678);
-        assertEquals(rng, rt.getElement());
+        var rt = RangedTag.create(0x1234, 0x5678);
+        var rng = Range.create(0x5678);
+        assertEquals(rng, rt.element());
     }
 
     @Test
     void getElementRanged() {
-        var rt = new RangedTag();
-        rt.set("(1234,56xx)");
-        var rng = new RangedTag.Range();
-        rng.set("0x56xx");
-        assertEquals(rng, rt.getElement());
+        var rt = RangedTag.create("(1234,56xx)");
+        var rng = Range.create("0x56xx");
+        assertEquals(rng, rt.element());
     }
 
     @Test
     void isWithin() {
-        var rt = new RangedTag();
-        rt.set(0x1234, 0x5678);
+        var rt = RangedTag.create(0x1234, 0x5678);
         assertTrue(rt.isWithin(0x1234,0x5678));
-        rt.set("(12xx,5678)");
+        rt = RangedTag.create("(12xx,5678)");
         assertTrue(rt.isWithin(0x1200, 0x5678));
         assertTrue(rt.isWithin(0x12FF, 0x5678));
-        rt.set("(1234,56xx)");
+        rt = RangedTag.create("(1234,56xx)");
         assertTrue(rt.isWithin(0x1234,0x5600));
         assertTrue(rt.isWithin(0x1234,0x56FF));
     }
     @Test
     void isNotWithin() {
-        var rt = new RangedTag();
-        rt.set(0x1234, 0x5678);
+        var rt = RangedTag.create(0x1234, 0x5678);
         assertFalse(rt.isWithin(0x1233,0x5678));
         assertFalse(rt.isWithin(0x1234,0x5677));
 
-        rt.set("(12xx,5678)");
+        rt = RangedTag.create("(12xx,5678)");
         assertFalse(rt.isWithin(0x1100, 0x5678));
         assertFalse(rt.isWithin(0x13FF, 0x5678));
-        rt.set("(1234,56xx)");
+        rt = RangedTag.create("(1234,56xx)");
         assertFalse(rt.isWithin(0x1234,0x55FF));
         assertFalse(rt.isWithin(0x1234,0x5700));
     }
 
     @Test
     void rangeIsWithin() {
-        var range = new RangedTag.Range(0x1234);
+        var range = Range.create(0x1234);
         assertTrue(range.isWithin(0x1234));
-        range = new RangedTag.Range();
-        range.set("12xx");
+        range = Range.create("12xx");
         assertTrue(range.isWithin(0x1200));
         assertTrue(range.isWithin(0x1201));
         assertTrue(range.isWithin(0x12FF));
     }
     @Test
     void rangeIsNotWithin() {
-        var range = new RangedTag.Range(0x1234);
+        var range = Range.create(0x1234);
         assertFalse(range.isWithin(0x1233));
         assertFalse(range.isWithin(0x1235));
-        range = new RangedTag.Range();
-        range.set("12xx");
+        range = Range.create("12xx");
         assertFalse(range.isWithin(0x11FF));
         assertFalse(range.isWithin(0x1301));
     }

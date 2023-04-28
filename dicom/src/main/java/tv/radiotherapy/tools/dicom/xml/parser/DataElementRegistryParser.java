@@ -37,34 +37,26 @@ public class DataElementRegistryParser implements Parser<DataElementRegistry> {
             if (tds.getLength() != 6) {
                 throw new ParserException(String.format("Expected a table row[%d] with 6 columns but the actual column count is %d", r, tds.getLength()));
             }
-            var item = new DataElementRegistry.Item();
-            var tag = new RangedTag();
-            tag.set(InnerText.get(tds.item(0)));
-            item.setTag(tag);
+            var tag = RangedTag.create(InnerText.get(tds.item(0)));
             var name = InnerText.get(tds.item(1));
-            item.setName(name);
             var keyword = InnerText.get(tds.item(2));
-            item.setKeyword(keyword);
-
+            VR vr;
             if (name.isBlank() || keyword.isBlank()) {
                 continue;
             }
             var lvr = vrParser.parse((Element) tds.item(3));
-            var nlvr = lvr.size();
-            if (nlvr == 0) {
-                item.setVr(VR.NONE);
+            if (lvr.size() == 0) {
+                vr = VR.NONE;
             } else {
-                item.setVr(lvr.get(0));
-                if (nlvr > 1) {
-                    lvr.remove(0);
-                    item.getOvr().addAll(lvr);
-                }
+                vr = lvr.get(0);
+                lvr.remove(0);
             }
             var vm = InnerText.get(tds.item(4));
-            item.setVm(vm);
             var desc = InnerText.get(tds.item(5));
-            item.setDesc(desc);
-            registry.add(item);
+            registry.add(
+                    new DataElementRegistry.Item(
+                            tag, name, keyword, vr, lvr, vm, desc
+                    ));
         }
     }
 

@@ -14,7 +14,9 @@ public class VRParser implements Parser<List<VR>> {
     public List<VR> parse(@NotNull Element element) throws ParserException, XPathExpressionException, IllegalArgumentException, NullPointerException {
         var s = InnerText.get(element).trim();
         if (s.isBlank() || s.contains("See Note")) {
-            return List.of(VR.NONE);
+            var list = new ArrayList<VR>(1);
+            list.add(VR.NONE);
+            return list;
         } else if (s.contains("or")) {
             var vrs = Arrays.stream(s.split("or")).toList();
             var nvrs = vrs.size();
@@ -24,7 +26,9 @@ public class VRParser implements Parser<List<VR>> {
             }
             return list;
         } else {
-            return List.of(VR.valueOf(s));
+            var list = new ArrayList<VR>(1);
+            list.add(VR.valueOf(s));
+            return list;
         }
     }
 }
