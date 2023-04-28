@@ -28,9 +28,9 @@ class OLinkParserTest {
         var xpath = XPathFactory.newInstance().newXPath();
         var element = (Element) xpath.compile("/book/olink").evaluate(doc.getDocumentElement(), XPathConstants.NODE);
         OLink olink = new OLinkParser().parse(element);
-        assertEquals("document", olink.getDocument());
-        assertEquals("ptr", olink.getPtr());
-        assertEquals("style", olink.getStyle());
+        assertEquals("document", olink.document());
+        assertEquals("ptr", olink.ptr());
+        assertEquals("style", olink.style());
     }
 
 

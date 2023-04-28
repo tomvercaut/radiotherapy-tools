@@ -1,8 +1,5 @@
 package tv.radiotherapy.tools.dicom.xml.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -179,14 +176,11 @@ public class UidRegistry implements List<UidRegistry.Item> {
         il.forEach(action);
     }
 
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Item {
-        private String uid = "";
-        private String name = "";
-        private String keyword = "";
-        private UidType type = UidType.None;
-        private OLink link = new OLink();
-    }
+    public record Item (
+        String uid,
+        String name,
+        String keyword,
+        UidType type,
+        OLink link
+    ){}
 }

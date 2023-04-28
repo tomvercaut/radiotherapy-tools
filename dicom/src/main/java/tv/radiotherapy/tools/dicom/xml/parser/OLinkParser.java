@@ -16,22 +16,21 @@ public class OLinkParser implements Parser<OLink> {
             throw new ParserException("Expected an element with the name " + quote(requiredElementName) + " but found an element with the name " + quote(name));
         }
 
-        var link = new OLink();
-        link.setDocument(element.getAttribute("targetdoc"));
-        link.setPtr(element.getAttribute("targetptr"));
-        link.setStyle(element.getAttribute("xrefstyle"));
-        link.setLocalInfo(element.getAttribute("localinfo"));
-        link.setType(element.getAttribute("type"));
+        var document =element.getAttribute("targetdoc");
+        var ptr=element.getAttribute("targetptr");
+        var style = element.getAttribute("xrefstyle");
+        var type = element.getAttribute("type");
+        var localInfo = element.getAttribute("localinfo");
 
-        if (link.getDocument().isBlank()) {
+        if (document.isBlank()) {
             throw new ParserException("Element: " + quote(requiredElementName) + ", attribute: " + quote("targetdoc") + " is missing or empty");
         }
-        if (link.getPtr().isBlank()) {
+        if (ptr.isBlank()) {
             throw new ParserException("Element: " + quote(requiredElementName) + ", attribute: " + quote("targetptr") + " is missing or empty");
         }
-        if (link.getStyle().isBlank()) {
+        if (style.isBlank()) {
             throw new ParserException("Element: " + quote(requiredElementName) + ", attribute: " + quote("xrefstyle") + " is missing or empty");
         }
-        return link;
+        return new OLink(document, ptr, style, type, localInfo);
     }
 }

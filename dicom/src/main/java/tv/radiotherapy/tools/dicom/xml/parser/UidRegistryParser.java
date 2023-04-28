@@ -38,23 +38,18 @@ public class UidRegistryParser implements Parser<UidRegistry> {
                 throw new ParserException(String.format("Expected a table row[%d] with 5 columns but the actual column count is %d", r, tds.getLength()));
             }
 
-            var item = new UidRegistry.Item();
             var uid = InnerText.get(tds.item(0)).replace(" ", "");
-            item.setUid(uid);
             var name = InnerText.get(tds.item(1));
-            item.setName(name);
             var keyword = InnerText.get(tds.item(2)).replace(" ", "");
-            item.setKeyword(keyword);
             var uidType = uidTypeParser.parse((Element) tds.item(3));
-            item.setType(uidType);
             var olinkElement = (Element) olinkExpression.evaluate(tds.item(4), XPathConstants.NODE);
+            OLink olink;
             if (olinkElement == null) {
-                item.setLink(new OLink());
+                olink = new OLink("", "", "", "", "");
             } else {
-                var olink = olinkParser.parse(olinkElement);
-                item.setLink(olink);
+                olink = olinkParser.parse(olinkElement);
             }
-            registry.add(item);
+            registry.add(new UidRegistry.Item(uid, name, keyword, uidType, olink));
         }
     }
 }
