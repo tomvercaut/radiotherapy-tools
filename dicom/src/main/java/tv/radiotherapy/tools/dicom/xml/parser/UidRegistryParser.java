@@ -1,0 +1,60 @@
+package tv.radiotherapy.tools.dicom.xml.parser;
+
+import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import tv.radiotherapy.tools.dicom.xml.model.OLink;
+import tv.radiotherapy.tools.dicom.xml.model.UidRegistry;
+
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
+public class UidRegistryParser implements Parser<UidRegistry> {
+    @Override
+    public UidRegistry parse(@NotNull Element element) throws ParserException, XPathExpressionException {
+        var registry = new UidRegistry();
+        build(element, registry, "table_A-1");
+        return registry;
+    }
+
+    private void build(@NotNull Element root, @NotNull UidRegistry registry, @NotNull String tableId) throws XPathExpressionException, IllegalArgumentException, NullPointerException, ParserException {
+        // Find table by id.
+        final Node table = TableHelper.findById(root, tableId);
+        // Extract table rows and iterate the rows.
+        final NodeList rows = TableHelper.getRows(table);
+        final var nrows = rows.getLength();
+        // UID type parser
+        var uidTypeParser = new UidTypeParser();
+        // OLink parser and XPath expression
+        var olinkParser = new OLinkParser();
+        var olinkExpression = XPathFactory.newInstance().newXPath().compile(".//olink");
+        for (int r = 0; r < nrows; r++) {
+
+            // Extract row columns and iterate them
+            var tds = TableHelper.getColumns(rows.item(r));
+            if (tds.getLength() != 5) {
+                throw new ParserException(String.format("Expected a table row[%d] with 5 columns but the actual column count is %d", r, tds.getLength()));
+            }
+
+            var item = new UidRegistry.Item();
+            var uid = InnerText.get(tds.item(0)).replace(" ", "");
+            item.setUid(uid);
+            var name = InnerText.get(tds.item(1));
+            item.setName(name);
+            var keyword = InnerText.get(tds.item(2)).replace(" ", "");
+            item.setKeyword(keyword);
+            var uidType = uidTypeParser.parse((Element) tds.item(3));
+            item.setType(uidType);
+            var olinkElement = (Element) olinkExpression.evaluate(tds.item(4), XPathConstants.NODE);
+            if (olinkElement == null) {
+                item.setLink(new OLink());
+            } else {
+                var olink = olinkParser.parse(olinkElement);
+                item.setLink(olink);
+            }
+            registry.add(item);
+        }
+    }
+}
