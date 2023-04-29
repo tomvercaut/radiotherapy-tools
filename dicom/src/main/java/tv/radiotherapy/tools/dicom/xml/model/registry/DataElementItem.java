@@ -1,8 +1,11 @@
-package tv.radiotherapy.tools.dicom.xml.model;
+package tv.radiotherapy.tools.dicom.xml.model.registry;
+
+import tv.radiotherapy.tools.dicom.xml.model.RangedTag;
+import tv.radiotherapy.tools.dicom.xml.model.VR;
 
 import java.util.List;
 
-public record DataElementRegistryItem(
+public record DataElementItem(
         RangedTag tag,
         String name,
         String keyword,
