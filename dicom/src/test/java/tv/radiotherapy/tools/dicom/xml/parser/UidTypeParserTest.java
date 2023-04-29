@@ -37,6 +37,10 @@ class UidTypeParserTest {
                     <para>Mapping Resource</para>
                     <para>LDAP OID</para>
                     <para>Synchronization Frame of Reference</para>
+                    <para>Document TemplateID</para>
+                    <para>Section TemplateID</para>
+                    <para>Entry TemplateID</para>
+                    <para>Element Set TemplateID</para>
                 </book>""";
         var expected = List.of(
                 UidType.SOPClass,
@@ -50,7 +54,11 @@ class UidTypeParserTest {
                 UidType.ApplicationHostingModel,
                 UidType.MappingResource,
                 UidType.LdapOid,
-                UidType.SynchronizationFrameOfReference
+                UidType.SynchronizationFrameOfReference,
+                UidType.DocumentTemplateId,
+                UidType.SectionTemplateId,
+                UidType.EntryTemplateId,
+                UidType.ElementSetTemplateId
         );
         var doc = DocumentReader.readXmlString(xml);
         var xpath = XPathFactory.newInstance().newXPath();
