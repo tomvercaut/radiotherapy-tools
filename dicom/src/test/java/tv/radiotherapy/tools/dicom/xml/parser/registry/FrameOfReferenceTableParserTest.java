@@ -30,7 +30,7 @@ class FrameOfReferenceTableParserTest {
                 new FrameOfReferenceItem("1.2.840.10008.1.4.1.1", "Talairach Brain Atlas Frame of Reference", "TalairachBrainAtlas"),
                 new FrameOfReferenceItem("1.2.840.10008.1.4.1.2", "SPM2 T1 Frame of Reference", "SPM2T1")
         );
-        for (FrameOfReferenceItem item : expected) {
+        for (var item : expected) {
             assertTrue(registry.contains(item));
         }
     }

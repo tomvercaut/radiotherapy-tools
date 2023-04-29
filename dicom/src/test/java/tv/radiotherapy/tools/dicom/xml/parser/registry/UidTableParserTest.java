@@ -47,7 +47,7 @@ class UidTableParserTest {
                 new UidItem("1.2.840.10008.15.1.1", "Universal Coordinated Time", "UTC", UidType.SynchronizationFrameOfReference, new OLink("PS3.3", "PS3.3", "select: labelnumber"))
         );
 
-        for (UidItem item : expected) {
+        for (var item : expected) {
             assertTrue(registry.contains(item));
         }
     }
