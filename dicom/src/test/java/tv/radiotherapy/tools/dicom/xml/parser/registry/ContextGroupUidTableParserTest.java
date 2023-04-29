@@ -2,7 +2,7 @@ package tv.radiotherapy.tools.dicom.xml.parser.registry;
 
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
-import tv.radiotherapy.tools.dicom.xml.DocumentReader;
+import tv.radiotherapy.tools.dicom.xml.SharedResources;
 import tv.radiotherapy.tools.dicom.xml.model.OLink;
 import tv.radiotherapy.tools.dicom.xml.model.registry.ContextGroupUid;
 import tv.radiotherapy.tools.dicom.xml.parser.ParserException;
@@ -19,10 +19,8 @@ class ContextGroupUidTableParserTest {
 
     @Test
     void parse() throws ParserConfigurationException, IOException, SAXException, ParserException, XPathExpressionException {
-        var classLoader = getClass().getClassLoader();
-        var inputStream = classLoader.getResourceAsStream("dicom_standard/part06/part06.xml");
-        assertNotNull(inputStream);
-        var doc = DocumentReader.read(inputStream);
+        var doc = SharedResources.getInstance().getPart06();
+        assertNotNull(doc);
         var root = doc.getDocumentElement();
         var registry = new ContextGroupUidTableParser().parse(root, new ContextGroupUidTableRowParser());
         assertNotNull(registry);

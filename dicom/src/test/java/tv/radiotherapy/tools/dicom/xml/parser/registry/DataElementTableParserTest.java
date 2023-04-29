@@ -2,7 +2,7 @@ package tv.radiotherapy.tools.dicom.xml.parser.registry;
 
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
-import tv.radiotherapy.tools.dicom.xml.DocumentReader;
+import tv.radiotherapy.tools.dicom.xml.SharedResources;
 import tv.radiotherapy.tools.dicom.xml.parser.ParserException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,10 +15,8 @@ class DataElementTableParserTest {
 
     @Test
     void build() throws IOException, ParserConfigurationException, SAXException, ParserException, XPathExpressionException {
-        var classLoader = getClass().getClassLoader();
-        var inputStream = classLoader.getResourceAsStream("dicom_standard/part06/part06.xml");
-        assertNotNull(inputStream);
-        var doc = DocumentReader.read(inputStream);
+        var doc = SharedResources.getInstance().getPart06();
+        assertNotNull(doc);
         var root = doc.getDocumentElement();
         var registry = new DataElementTableParser().parse(root, new DataElementTableRowParser());
         assertNotNull(registry);
