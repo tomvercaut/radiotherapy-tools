@@ -1,4 +1,4 @@
-package tv.radiotherapy.tools.dicom.xml.parser.registry.impl;
+package tv.radiotherapy.tools.dicom.xml.parser.registry;
 
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;

@@ -7,8 +7,6 @@ import tv.radiotherapy.tools.dicom.xml.model.OLink;
 import tv.radiotherapy.tools.dicom.xml.model.registry.UidItem;
 import tv.radiotherapy.tools.dicom.xml.model.UidType;
 import tv.radiotherapy.tools.dicom.xml.parser.ParserException;
-import tv.radiotherapy.tools.dicom.xml.parser.registry.impl.UidTableRowParser;
-import tv.radiotherapy.tools.dicom.xml.parser.registry.impl.UidTableParser;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;

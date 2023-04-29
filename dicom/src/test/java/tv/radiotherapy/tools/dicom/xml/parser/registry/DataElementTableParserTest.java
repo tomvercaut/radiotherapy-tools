@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import tv.radiotherapy.tools.dicom.xml.DocumentReader;
 import tv.radiotherapy.tools.dicom.xml.parser.ParserException;
-import tv.radiotherapy.tools.dicom.xml.parser.registry.impl.DataElementTableRowParser;
-import tv.radiotherapy.tools.dicom.xml.parser.registry.impl.DataElementTableParser;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
