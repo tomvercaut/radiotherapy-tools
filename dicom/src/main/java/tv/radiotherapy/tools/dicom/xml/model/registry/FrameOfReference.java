@@ -7,7 +7,7 @@ package tv.radiotherapy.tools.dicom.xml.model.registry;
  * @param name    name of the frame of reference
  * @param keyword keyword of the frame of reference
  */
-public record FrameOfReferenceItem(
+public record FrameOfReference(
         String uid,
         String name,
         String keyword

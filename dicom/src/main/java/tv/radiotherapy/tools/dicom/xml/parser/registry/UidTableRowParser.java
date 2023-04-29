@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import tv.radiotherapy.tools.dicom.xml.model.OLink;
-import tv.radiotherapy.tools.dicom.xml.model.registry.UidItem;
+import tv.radiotherapy.tools.dicom.xml.model.registry.Uid;
 import tv.radiotherapy.tools.dicom.xml.parser.*;
 
 import javax.xml.xpath.XPathConstants;
@@ -13,12 +13,12 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.util.Optional;
 
-public class UidTableRowParser implements TableRowParser<UidItem> {
+public class UidTableRowParser implements TableRowParser<Uid> {
     private final OLinkParser olinkParser = new OLinkParser();
     private final UidTypeParser uidTypeParser = new UidTypeParser();
 
     @Override
-    public Optional<UidItem> parseRow(@NotNull Node row) throws XPathExpressionException, IllegalArgumentException, ParserException {
+    public Optional<Uid> parseRow(@NotNull Node row) throws XPathExpressionException, IllegalArgumentException, ParserException {
         if (row.getNodeType() != Node.ELEMENT_NODE) {
             throw new IllegalArgumentException("XML node must be of an XML element");
         }
@@ -38,7 +38,7 @@ public class UidTableRowParser implements TableRowParser<UidItem> {
         } else {
             olink = olinkParser.parse(olinkElement);
         }
-        return Optional.of(new UidItem(uid, name, keyword, uidType, olink));
+        return Optional.of(new Uid(uid, name, keyword, uidType, olink));
     }
 
     private static XPathExpression olinkExpression() throws XPathExpressionException {

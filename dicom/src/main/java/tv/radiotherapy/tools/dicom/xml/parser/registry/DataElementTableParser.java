@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import tv.radiotherapy.tools.dicom.xml.model.registry.DataElementItem;
+import tv.radiotherapy.tools.dicom.xml.model.registry.DataElement;
 import tv.radiotherapy.tools.dicom.xml.parser.ParserException;
 import tv.radiotherapy.tools.dicom.xml.parser.TableHelper;
 import tv.radiotherapy.tools.dicom.xml.parser.TableParser;
@@ -13,11 +13,11 @@ import javax.xml.xpath.XPathExpressionException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataElementTableParser implements TableParser<List<DataElementItem>, DataElementTableRowParser> {
+public class DataElementTableParser implements TableParser<List<DataElement>, DataElementTableRowParser> {
 
     @Override
-    public List<DataElementItem> parse(@NotNull Element element, @NotNull DataElementTableRowParser rowParser) throws ParserException, XPathExpressionException, IllegalArgumentException, NullPointerException {
-        var registry = new ArrayList<DataElementItem>();
+    public List<DataElement> parse(@NotNull Element element, @NotNull DataElementTableRowParser rowParser) throws ParserException, XPathExpressionException, IllegalArgumentException, NullPointerException {
+        var registry = new ArrayList<DataElement>();
         build(element, registry, rowParser, "table_6-1");
         build(element, registry, rowParser, "table_7-1");
         build(element, registry, rowParser, "table_8-1");
@@ -25,7 +25,7 @@ public class DataElementTableParser implements TableParser<List<DataElementItem>
         return registry;
     }
 
-    private void build(@NotNull Element root, @NotNull List<DataElementItem> registry, @NotNull DataElementTableRowParser rowParser, @NotNull String tableId) throws XPathExpressionException, IllegalArgumentException, ParserException {
+    private void build(@NotNull Element root, @NotNull List<DataElement> registry, @NotNull DataElementTableRowParser rowParser, @NotNull String tableId) throws XPathExpressionException, IllegalArgumentException, ParserException {
         // Find table by id.
         final Node table = TableHelper.findById(root, tableId);
         // Extract table rows and iterate the rows.

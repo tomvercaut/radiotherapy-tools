@@ -3,7 +3,7 @@ package tv.radiotherapy.tools.dicom.xml.parser.registry;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import tv.radiotherapy.tools.dicom.xml.model.registry.DataElementItem;
+import tv.radiotherapy.tools.dicom.xml.model.registry.DataElement;
 import tv.radiotherapy.tools.dicom.xml.model.RangedTag;
 import tv.radiotherapy.tools.dicom.xml.model.VR;
 import tv.radiotherapy.tools.dicom.xml.parser.*;
@@ -11,10 +11,10 @@ import tv.radiotherapy.tools.dicom.xml.parser.*;
 import javax.xml.xpath.XPathExpressionException;
 import java.util.Optional;
 
-public class DataElementTableRowParser implements TableRowParser<DataElementItem> {
+public class DataElementTableRowParser implements TableRowParser<DataElement> {
     private final VRParser vrParser = new VRParser();
     @Override
-    public Optional<DataElementItem> parseRow(@NotNull Node row) throws XPathExpressionException, IllegalArgumentException, ParserException {
+    public Optional<DataElement> parseRow(@NotNull Node row) throws XPathExpressionException, IllegalArgumentException, ParserException {
         if (row.getNodeType() != Node.ELEMENT_NODE) {
             throw new IllegalArgumentException("XML node must be of an XML element");
         }
@@ -39,7 +39,7 @@ public class DataElementTableRowParser implements TableRowParser<DataElementItem
         }
         var vm = InnerText.get(tds.item(4));
         var desc = InnerText.get(tds.item(5));
-        return Optional.of(new DataElementItem(
+        return Optional.of(new DataElement(
                 tag, name, keyword, vr, lvr, vm, desc
         ));
     }

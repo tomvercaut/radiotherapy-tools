@@ -3,7 +3,7 @@ package tv.radiotherapy.tools.dicom.xml.parser.registry;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import tv.radiotherapy.tools.dicom.xml.DocumentReader;
-import tv.radiotherapy.tools.dicom.xml.model.registry.FrameOfReferenceItem;
+import tv.radiotherapy.tools.dicom.xml.model.registry.FrameOfReference;
 import tv.radiotherapy.tools.dicom.xml.parser.ParserException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,8 +27,8 @@ class FrameOfReferenceTableParserTest {
         assertNotNull(registry);
 
         var expected = List.of(
-                new FrameOfReferenceItem("1.2.840.10008.1.4.1.1", "Talairach Brain Atlas Frame of Reference", "TalairachBrainAtlas"),
-                new FrameOfReferenceItem("1.2.840.10008.1.4.1.2", "SPM2 T1 Frame of Reference", "SPM2T1")
+                new FrameOfReference("1.2.840.10008.1.4.1.1", "Talairach Brain Atlas Frame of Reference", "TalairachBrainAtlas"),
+                new FrameOfReference("1.2.840.10008.1.4.1.2", "SPM2 T1 Frame of Reference", "SPM2T1")
         );
         for (var item : expected) {
             assertTrue(registry.contains(item));

@@ -6,6 +6,7 @@ package tv.radiotherapy.tools.dicom.xml.model;
  * These UIDs are described in the DICOM standard part 06:
  * <ul>
  *     <li>table A-1. UID Values</li>
+ *     <li>table A-4. template UID Values</li>
  * </ul>
  */
 public enum UidType {
@@ -21,4 +22,8 @@ public enum UidType {
     MappingResource,
     LdapOid,
     SynchronizationFrameOfReference,
+    DocumentTemplateId,
+    SectionTemplateId,
+    EntryTemplateId,
+    ElementSetTemplateId
 }

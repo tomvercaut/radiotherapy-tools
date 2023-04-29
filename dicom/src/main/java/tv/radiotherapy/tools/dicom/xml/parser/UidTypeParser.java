@@ -34,6 +34,14 @@ public class UidTypeParser implements Parser<UidType> {
             return UidType.LdapOid;
         } else if (value.equals("Synchronization Frame of Reference")) {
             return UidType.SynchronizationFrameOfReference;
+        } else if (value.equals("Document TemplateID")) {
+            return UidType.DocumentTemplateId;
+        } else if (value.equals("Section TemplateID")) {
+            return UidType.SectionTemplateId;
+        } else if (value.equals("Entry TemplateID")) {
+            return UidType.EntryTemplateId;
+        } else if (value.equals("Element Set TemplateID")) {
+            return UidType.ElementSetTemplateId;
         } else {
             throw new ParserException("Unknown UID type: " + quote(value));
         }

@@ -5,7 +5,7 @@ import tv.radiotherapy.tools.dicom.xml.model.VR;
 
 import java.util.List;
 
-public record DataElementItem(
+public record DataElement(
         RangedTag tag,
         String name,
         String keyword,
