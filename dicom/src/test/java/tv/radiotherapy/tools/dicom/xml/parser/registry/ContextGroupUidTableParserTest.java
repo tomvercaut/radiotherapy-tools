@@ -1,16 +1,14 @@
 package tv.radiotherapy.tools.dicom.xml.parser.registry;
 
 import org.junit.jupiter.api.Test;
-import org.xml.sax.SAXException;
 import tv.radiotherapy.tools.dicom.xml.SharedResources;
 import tv.radiotherapy.tools.dicom.xml.model.OLink;
 import tv.radiotherapy.tools.dicom.xml.model.registry.ContextGroupUid;
 import tv.radiotherapy.tools.dicom.xml.parser.ParserException;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
-import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ContextGroupUidTableParserTest {
 
     @Test
-    void parse() throws ParserConfigurationException, IOException, SAXException, ParserException, XPathExpressionException {
+    void parse() throws ParserException, XPathExpressionException, ExecutionException, InterruptedException {
         var doc = SharedResources.getInstance().getPart06();
         assertNotNull(doc);
         var root = doc.getDocumentElement();
