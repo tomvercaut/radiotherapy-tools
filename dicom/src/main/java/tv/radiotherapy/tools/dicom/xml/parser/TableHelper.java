@@ -20,6 +20,19 @@ public class TableHelper {
     private static final XPath xPath = XPathFactory.newInstance().newXPath();
 
     /**
+     * Test if the XML node an element.
+     *
+     * @param node XML node
+     * @return True if the node is an XML element has a tag name 'table'.
+     */
+    public static boolean isTable(@NotNull Node node) {
+        if (node.getNodeType() != Node.ELEMENT_NODE) {
+            return false;
+        }
+        return ((Element) node).getTagName().equals("table");
+    }
+
+    /**
      * Find a table by the `id` XML attribute.
      *
      * @param element XML element
