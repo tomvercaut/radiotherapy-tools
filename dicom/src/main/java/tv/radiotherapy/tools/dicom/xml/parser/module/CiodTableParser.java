@@ -1,7 +1,5 @@
 package tv.radiotherapy.tools.dicom.xml.parser.module;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -20,7 +18,6 @@ import java.util.ArrayList;
 
 public class CiodTableParser implements TableParser<Ciod, CiodTableRowParser> {
 
-    private static final Logger logger = LogManager.getLogger(TableHelper.class);
     private final XPath xPath = XPathFactory.newInstance().newXPath();
 
     @Override
@@ -28,6 +25,7 @@ public class CiodTableParser implements TableParser<Ciod, CiodTableRowParser> {
         if (!TableHelper.isTable(table)) {
             throw new ParserException("Expected an XML table element while parsing a CIOD table.");
         }
+        var id = table.getAttribute("xml:id");
         var captionElement = (Element) xPath.compile(".//caption").evaluate(table, XPathConstants.NODE);
         if (captionElement == null) {
             throw new ParserException("Unable to find caption in XML table.");
@@ -41,7 +39,6 @@ public class CiodTableParser implements TableParser<Ciod, CiodTableRowParser> {
             if (opt.isEmpty()) {
                 continue;
             }
-            logger.debug(String.format("row: %d", r));
             var entry = opt.get();
             if (entry.hasIe()) {
                 ciods.add(entry);
@@ -61,6 +58,6 @@ public class CiodTableParser implements TableParser<Ciod, CiodTableRowParser> {
         } else {
             name = caption;
         }
-        return new Ciod(name, ciods);
+        return new Ciod(id, name, ciods);
     }
 }

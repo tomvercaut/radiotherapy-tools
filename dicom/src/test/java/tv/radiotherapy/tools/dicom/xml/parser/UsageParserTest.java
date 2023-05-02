@@ -32,6 +32,8 @@ class UsageParserTest {
                     <para>M - other</para>
                     <para>U - other</para>
                     <para>C - other</para>
+                    <para>C
+                    other</para>
                 </book>""";
         var doc = DocumentReader.readXmlString(xml);
         assertNotNull(doc);
@@ -49,6 +51,7 @@ class UsageParserTest {
                 Usage.C,
                 Usage.M,
                 Usage.U,
+                Usage.C,
                 Usage.C
         );
         assertEquals(expected.size(), usages.size());

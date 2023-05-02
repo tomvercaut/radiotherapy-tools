@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -45,8 +46,37 @@ public class XmlHelper {
      */
     @NotNull
     public static Node findById(@NotNull Element element, @NotNull String tableId, XPath xPath) throws XPathExpressionException, IllegalArgumentException, NullPointerException {
-        var expression = ".//*[@id='" + tableId + "']";
+        final var expression = ".//*[@id='" + tableId + "']";
         logger.debug(String.format("Looking up table with XML id: %s", tableId));
         return (Node) xPath.compile(expression).evaluate(element, XPathConstants.NODE);
+    }
+
+    /**
+     * Find all nested XML tables.
+     *
+     * @param element XML element
+     * @return XML node
+     * @throws XPathExpressionException If the expression cannot be evaluated.
+     * @throws IllegalArgumentException If {@code returnType} is not one of the types defined in {@link XPathConstants}.
+     * @throws NullPointerException     If {@code returnType} is {@code null}.
+     */
+    public static NodeList findTables(@NotNull Element element) throws XPathExpressionException, IllegalArgumentException, NullPointerException {
+        return findTables(element, xPath);
+    }
+
+    /**
+     * Find all nested XML tables.
+     *
+     * @param element XML element
+     * @param xPath   provides access to the XPath evaluation environment
+     * @return XML node
+     * @throws XPathExpressionException If the expression cannot be evaluated.
+     * @throws IllegalArgumentException If {@code returnType} is not one of the types defined in {@link XPathConstants}.
+     * @throws NullPointerException     If {@code returnType} is {@code null}.
+     */
+    public static NodeList findTables(@NotNull Element element, @NotNull XPath xPath) throws XPathExpressionException, IllegalArgumentException, NullPointerException {
+        final var expression = ".//table";
+        logger.debug("Looking up tables");
+        return (NodeList) xPath.compile(expression).evaluate(element, XPathConstants.NODESET);
     }
 }

@@ -5,14 +5,20 @@ import org.w3c.dom.Element;
 import tv.radiotherapy.tools.dicom.xml.model.Usage;
 
 import javax.xml.xpath.XPathExpressionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UsageParser implements Parser<Usage> {
+    @SuppressWarnings("EscapedSpace")
+    private final static Pattern pattern = Pattern.compile("[\s\n]");
+
     @Override
     public Usage parse(@NotNull Element element) throws ParserException, XPathExpressionException, IllegalArgumentException, NullPointerException {
-        var s = InnerText.get(element).trim();
-        var i = s.indexOf(' ');
+        final var s = InnerText.get(element).trim();
+        final Matcher matcher = pattern.matcher(s);
         String t = s;
-        if (i > 0) {
+        if (matcher.find()) {
+            final var i = matcher.start();
             t = s.substring(0, i);
         }
         switch (t) {
