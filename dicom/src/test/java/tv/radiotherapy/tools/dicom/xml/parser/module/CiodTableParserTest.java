@@ -30,8 +30,8 @@ class CiodTableParserTest {
         var tableA2_1Element = (Element) TableHelper.findById(chapterA, "table_A.2-1");
         var tableParser = new CiodTableParser();
         var ciod = tableParser.parse(tableA2_1Element, new CiodTableRowParser());
-        assertEquals("CR Image", ciod.name());
-        var eciod = new Ciod("table_A.2-1","CR Image", List.of(
+        assertEquals("Computed Radiography Image", ciod.name());
+        var eciod = new Ciod("table_A.2-1","Computed Radiography Image", List.of(
                 new CiodItem(
                         "Patient", List.of(
                                 new IodModule("Patient", new XRef("sect_C.7.1.1", "select: labelnumber"), Usage.M),
