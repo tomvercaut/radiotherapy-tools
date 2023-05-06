@@ -2,13 +2,13 @@ package tv.radiotherapy.tools.dicom.xml.parser.module;
 
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
-import tv.radiotherapy.tools.dicom.xml.SharedResources;
 import tv.radiotherapy.tools.dicom.xml.XRef;
 import tv.radiotherapy.tools.dicom.xml.model.Usage;
 import tv.radiotherapy.tools.dicom.xml.model.module.Ciod;
 import tv.radiotherapy.tools.dicom.xml.model.module.CiodItem;
 import tv.radiotherapy.tools.dicom.xml.model.module.ciod.IodModule;
 import tv.radiotherapy.tools.dicom.xml.parser.ParserException;
+import tv.radiotherapy.tools.dicom.xml.parser.SharedResources;
 import tv.radiotherapy.tools.dicom.xml.parser.TableHelper;
 import tv.radiotherapy.tools.dicom.xml.parser.XmlHelper;
 
@@ -31,11 +31,11 @@ class CiodTableParserTest {
         var tableParser = new CiodTableParser();
         var ciod = tableParser.parse(tableA2_1Element, new CiodTableRowParser());
         assertEquals("Computed Radiography Image", ciod.name());
-        var eciod = new Ciod("table_A.2-1","Computed Radiography Image", List.of(
+        var eciod = new Ciod("table_A.2-1", "Computed Radiography Image", List.of(
                 new CiodItem(
                         "Patient", List.of(
-                                new IodModule("Patient", new XRef("sect_C.7.1.1", "select: labelnumber"), Usage.M),
-                                new IodModule("Clinical Trial Subject", new XRef("sect_C.7.1.3", "select: labelnumber"), Usage.U)
+                        new IodModule("Patient", new XRef("sect_C.7.1.1", "select: labelnumber"), Usage.M),
+                        new IodModule("Clinical Trial Subject", new XRef("sect_C.7.1.3", "select: labelnumber"), Usage.U)
                 )),
                 new CiodItem(
                         "Study", List.of(

@@ -44,6 +44,7 @@ class XRefParserTest {
         var element = (Element) xpath.compile("/book/xref").evaluate(doc.getDocumentElement(), XPathConstants.NODE);
         assertThrows(ParserException.class, () -> new XRefParser().parse(element));
     }
+
     @Test
     void parseInvalidXrefstyle() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
         @Language("XML") var xml = """
