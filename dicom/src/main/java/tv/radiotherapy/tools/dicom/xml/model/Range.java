@@ -33,29 +33,6 @@ public record Range(
     }
 
     /**
-     * Test if the minimum and maxmimum value differs (indicating a range).
-     *
-     * @return True if the minimum and maximum value differ.
-     */
-    public boolean isRanged() {
-        return min != max;
-    }
-
-    /**
-     * If this instance is:
-     * <ul>
-     *     <li><b>is not a range</b>: test if the value is equal to the minimum value (which should be equal to the internally stored maxinum)</li>
-     *     <li><b>is a range</b>: test if the value is larger or equal to the minimum and smaller or equal to the maximum.</li>
-     * </ul>
-     *
-     * @param value group or element value of a DICOM tag
-     * @return True if the group or element value provided is within this range.
-     */
-    public boolean contains(int value) {
-        return (!isRanged()) ? min == value : (min <= value && value <= max);
-    }
-
-    /**
      * Create a Range where the minimum and maximum value are determined by the input value.
      *
      * @param value non-range integer value
@@ -66,7 +43,7 @@ public record Range(
         if (value < 0 || value > 0xFFFF) {
             throw new IllegalArgumentException("Input value must be strict positive and smaller or equal to 0xFFFF.");
         }
-        return new Range(value, value, String.format("%04x", value));
+        return new Range(value, value, String.format("%04X", value));
     }
 
     /**
@@ -87,7 +64,7 @@ public record Range(
         if (s.length() == 4) {
             t = s;
         } else if (s.length() == 6 && s.toLowerCase().startsWith("0x")) {
-            t = s.toLowerCase().substring(2);
+            t = s.substring(2);
         } else {
             throw new IllegalArgumentException("Expected a (Ranged) DICOM tag group or element value in the format: dddd or 0xdddd");
         }
@@ -110,5 +87,28 @@ public record Range(
             }
             return new Range(min, min, t);
         }
+    }
+
+    /**
+     * Test if the minimum and maxmimum value differs (indicating a range).
+     *
+     * @return True if the minimum and maximum value differ.
+     */
+    public boolean isRanged() {
+        return min != max;
+    }
+
+    /**
+     * If this instance is:
+     * <ul>
+     *     <li><b>is not a range</b>: test if the value is equal to the minimum value (which should be equal to the internally stored maxinum)</li>
+     *     <li><b>is a range</b>: test if the value is larger or equal to the minimum and smaller or equal to the maximum.</li>
+     * </ul>
+     *
+     * @param value group or element value of a DICOM tag
+     * @return True if the group or element value provided is within this range.
+     */
+    public boolean contains(int value) {
+        return (!isRanged()) ? min == value : (min <= value && value <= max);
     }
 }

@@ -19,5 +19,5 @@ public interface TableParser<TableModel, RowParser extends TableRowParser<?>> {
      * @throws IllegalArgumentException If {@code returnType} is not one of the types defined in {@link XPathConstants}.
      * @throws NullPointerException     If {@code returnType} is {@code null}.
      */
-    TableModel parse(@NotNull Element element, @NotNull RowParser rowParser) throws ParserException, XPathExpressionException, IllegalArgumentException, NullPointerException;
+    TableModel parse(@NotNull Element element, @NotNull RowParser rowParser) throws ParserException, XPathExpressionException, IllegalArgumentException, NullPointerException, InterruptedException;
 }

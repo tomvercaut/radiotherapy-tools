@@ -18,27 +18,6 @@ public record RangedTag(
         Range element) {
 
     /**
-     * Test if the instance is a range or not.
-     *
-     * @return True if the group or element is a range (@see {@link Range#isRanged()}).
-     */
-    public boolean isRanged() {
-        return group.isRanged() || element.isRanged();
-    }
-
-
-    /**
-     * Check if a group and element are within range of this instance.
-     *
-     * @param group   DICOM tag group
-     * @param element DICOM tag element
-     * @return True if the group value is within the group range and the element value is within the element range.
-     */
-    public boolean contains(int group, int element) {
-        return this.group.contains(group) && this.element.contains(element);
-    }
-
-    /**
      * Create a DICOM tag from a (non-ranged) group and element.
      *
      * @param group   DICOM tag group
@@ -74,5 +53,25 @@ public record RangedTag(
                 Range.create(s.substring(1, comma)),
                 Range.create(s.substring(comma + 1, s.length() - 1))
         );
+    }
+
+    /**
+     * Test if the instance is a range or not.
+     *
+     * @return True if the group or element is a range (@see {@link Range#isRanged()}).
+     */
+    public boolean isRanged() {
+        return group.isRanged() || element.isRanged();
+    }
+
+    /**
+     * Check if a group and element are within range of this instance.
+     *
+     * @param group   DICOM tag group
+     * @param element DICOM tag element
+     * @return True if the group value is within the group range and the element value is within the element range.
+     */
+    public boolean contains(int group, int element) {
+        return this.group.contains(group) && this.element.contains(element);
     }
 }

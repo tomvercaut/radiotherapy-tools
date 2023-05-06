@@ -40,13 +40,14 @@ class TagParserTest {
         }
 
         var expected = List.of(
-                new Tag(0x1234,0x5678)
+                new Tag(0x1234, 0x5678)
         );
         assertEquals(expected.size(), tags.size());
         for (int i = 0; i < elements.getLength(); i++) {
             assertEquals(expected.get(i), tags.get(i));
         }
     }
+
     @Test
     void parseException() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
         @Language("XML") var xml = """

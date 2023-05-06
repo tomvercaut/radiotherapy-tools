@@ -16,8 +16,8 @@ public class OLinkParser implements Parser<OLink> {
             throw new ParserException("Expected an element with the name " + quote(requiredElementName) + " but found an element with the name " + quote(name));
         }
 
-        var document =element.getAttribute("targetdoc");
-        var ptr=element.getAttribute("targetptr");
+        var document = element.getAttribute("targetdoc");
+        var ptr = element.getAttribute("targetptr");
         var style = element.getAttribute("xrefstyle");
         var type = element.getAttribute("type");
         var localInfo = element.getAttribute("localinfo");

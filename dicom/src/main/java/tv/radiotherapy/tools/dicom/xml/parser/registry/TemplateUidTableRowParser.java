@@ -17,6 +17,10 @@ public class TemplateUidTableRowParser implements TableRowParser<TemplateUid> {
     private final OLinkParser olinkParser = new OLinkParser();
     private final UidTypeParser uidTypeParser = new UidTypeParser();
 
+    private static XPathExpression olinkExpression() throws XPathExpressionException {
+        return XPathFactory.newInstance().newXPath().compile(".//olink");
+    }
+
     @Override
     public Optional<TemplateUid> parseRow(@NotNull Node row) throws XPathExpressionException, IllegalArgumentException, ParserException {
         if (row.getNodeType() != Node.ELEMENT_NODE) {
@@ -43,10 +47,6 @@ public class TemplateUidTableRowParser implements TableRowParser<TemplateUid> {
         } else {
             part = olinkParser.parse(olinkElement2);
         }
-        return Optional.of(new TemplateUid(uid, name,  uidType, part));
-    }
-
-    private static XPathExpression olinkExpression() throws XPathExpressionException {
-        return XPathFactory.newInstance().newXPath().compile(".//olink");
+        return Optional.of(new TemplateUid(uid, name, uidType, part));
     }
 }

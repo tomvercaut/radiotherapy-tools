@@ -3,7 +3,7 @@ package tv.radiotherapy.tools.dicom.xml.model.module;
 /**
  * DICOM tag consisting of a group and element value.
  *
- * @param group DICOM group
+ * @param group   DICOM group
  * @param element DICOM element
  */
 public record Tag(int group, int element) {

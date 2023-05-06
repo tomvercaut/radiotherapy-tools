@@ -70,26 +70,27 @@ class RangedTagTest {
     @Test
     void contains() {
         var rt = RangedTag.create(0x1234, 0x5678);
-        assertTrue(rt.contains(0x1234,0x5678));
+        assertTrue(rt.contains(0x1234, 0x5678));
         rt = RangedTag.create("(12xx,5678)");
         assertTrue(rt.contains(0x1200, 0x5678));
         assertTrue(rt.contains(0x12FF, 0x5678));
         rt = RangedTag.create("(1234,56xx)");
-        assertTrue(rt.contains(0x1234,0x5600));
-        assertTrue(rt.contains(0x1234,0x56FF));
+        assertTrue(rt.contains(0x1234, 0x5600));
+        assertTrue(rt.contains(0x1234, 0x56FF));
     }
+
     @Test
     void doesNotContain() {
         var rt = RangedTag.create(0x1234, 0x5678);
-        assertFalse(rt.contains(0x1233,0x5678));
-        assertFalse(rt.contains(0x1234,0x5677));
+        assertFalse(rt.contains(0x1233, 0x5678));
+        assertFalse(rt.contains(0x1234, 0x5677));
 
         rt = RangedTag.create("(12xx,5678)");
         assertFalse(rt.contains(0x1100, 0x5678));
         assertFalse(rt.contains(0x13FF, 0x5678));
         rt = RangedTag.create("(1234,56xx)");
-        assertFalse(rt.contains(0x1234,0x55FF));
-        assertFalse(rt.contains(0x1234,0x5700));
+        assertFalse(rt.contains(0x1234, 0x55FF));
+        assertFalse(rt.contains(0x1234, 0x5700));
     }
 
 }

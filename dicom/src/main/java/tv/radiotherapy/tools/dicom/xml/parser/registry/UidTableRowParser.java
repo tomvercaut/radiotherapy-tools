@@ -17,6 +17,10 @@ public class UidTableRowParser implements TableRowParser<Uid> {
     private final OLinkParser olinkParser = new OLinkParser();
     private final UidTypeParser uidTypeParser = new UidTypeParser();
 
+    private static XPathExpression olinkExpression() throws XPathExpressionException {
+        return XPathFactory.newInstance().newXPath().compile(".//olink");
+    }
+
     @Override
     public Optional<Uid> parseRow(@NotNull Node row) throws XPathExpressionException, IllegalArgumentException, ParserException {
         if (row.getNodeType() != Node.ELEMENT_NODE) {
@@ -39,9 +43,5 @@ public class UidTableRowParser implements TableRowParser<Uid> {
             olink = olinkParser.parse(olinkElement);
         }
         return Optional.of(new Uid(uid, name, keyword, uidType, olink));
-    }
-
-    private static XPathExpression olinkExpression() throws XPathExpressionException {
-        return XPathFactory.newInstance().newXPath().compile(".//olink");
     }
 }

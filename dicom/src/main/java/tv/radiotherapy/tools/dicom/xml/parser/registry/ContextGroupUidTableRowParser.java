@@ -16,6 +16,11 @@ import java.util.Optional;
 public class ContextGroupUidTableRowParser implements TableRowParser<ContextGroupUid> {
     private final OLinkParser oLinkParser = new OLinkParser();
 
+    @NotNull
+    private static XPathExpression olinkExpression() throws XPathExpressionException {
+        return XPathFactory.newInstance().newXPath().compile(".//olink");
+    }
+
     @Override
     public Optional<ContextGroupUid> parseRow(@NotNull Node row) throws XPathExpressionException, IllegalArgumentException, ParserException {
         if (row.getNodeType() != Node.ELEMENT_NODE) {
@@ -43,9 +48,5 @@ public class ContextGroupUidTableRowParser implements TableRowParser<ContextGrou
         }
         var comment = InnerText.get(tds.item(3));
         return Optional.of(new ContextGroupUid(uid, ctx, grp, comment));
-    }
-
-    private static XPathExpression olinkExpression() throws XPathExpressionException {
-        return XPathFactory.newInstance().newXPath().compile(".//olink");
     }
 }

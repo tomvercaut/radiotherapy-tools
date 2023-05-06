@@ -1,7 +1,8 @@
-package tv.radiotherapy.tools.dicom.xml;
+package tv.radiotherapy.tools.dicom.xml.parser;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+import tv.radiotherapy.tools.dicom.xml.DocumentReader;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -10,16 +11,14 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 /**
  * Thread-safe singleton implementation to load shared test resources.
  * <p>
  * Shared resources are loaded concurrently using an executor service.
  */
 public class SharedResources {
-    private static volatile SharedResources instance;
     private final static Object mutex = new Object();
+    private static volatile SharedResources instance;
     private final Document part03;
     private final Document part06;
 
@@ -76,7 +75,7 @@ public class SharedResources {
     private Document readPart03() throws ParserConfigurationException, IOException, SAXException {
         var classLoader = getClass().getClassLoader();
         var inputStream = classLoader.getResourceAsStream("dicom_standard/part03/part03.xml");
-        assertNotNull(inputStream);
+//        assertNotNull(inputStream);
         return DocumentReader.read(inputStream);
     }
 
@@ -94,7 +93,7 @@ public class SharedResources {
     private Document readPart06() throws ParserConfigurationException, IOException, SAXException {
         var classLoader = getClass().getClassLoader();
         var inputStream = classLoader.getResourceAsStream("dicom_standard/part06/part06.xml");
-        assertNotNull(inputStream);
+//        assertNotNull(inputStream);
         return DocumentReader.read(inputStream);
     }
 
