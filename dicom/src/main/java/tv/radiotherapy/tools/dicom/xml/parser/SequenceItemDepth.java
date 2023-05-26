@@ -1,6 +1,9 @@
 package tv.radiotherapy.tools.dicom.xml.parser;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Optional;
 
 /**
  * A helper class to compute the depth of a DICOM sequence item.
@@ -20,11 +23,11 @@ public class SequenceItemDepth {
      * @param s input value
      * @return The number of '>' characters at the beginning of a String.
      */
-    public static int get(@NotNull String s) {
+    public static Optional<Pair<Integer, Integer>> get(@NotNull String s) {
         final var n = s.length();
         int i = s.indexOf('>');
         if (i == -1) {
-            return 0;
+            return Optional.empty();
         }
         ++i;
         int c = 1;
@@ -40,6 +43,6 @@ public class SequenceItemDepth {
                 break;
             }
         }
-        return c;
+        return Optional.of(Pair.of(c, i));
     }
 }
