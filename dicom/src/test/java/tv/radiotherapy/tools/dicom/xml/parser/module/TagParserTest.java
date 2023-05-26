@@ -27,6 +27,8 @@ class TagParserTest {
                 <?xml version="1.0" encoding="utf-8" standalone="no"?>
                 <book>
                     <para>(1234,5678)</para>
+                    <para>(12CF,56AB)</para>
+                    <para>(12cf,56ab)</para>
                 </book>
                 """;
         var doc = DocumentReader.readXmlString(xml);
@@ -40,7 +42,9 @@ class TagParserTest {
         }
 
         var expected = List.of(
-                new Tag(0x1234, 0x5678)
+                new Tag(0x1234, 0x5678),
+                new Tag(0x12CF, 0x56AB),
+                new Tag(0x12cf, 0x56ab)
         );
         assertEquals(expected.size(), tags.size());
         for (int i = 0; i < elements.getLength(); i++) {

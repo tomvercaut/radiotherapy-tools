@@ -11,7 +11,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.util.regex.Pattern;
 
 public class TagParser implements Parser<Tag> {
-    private final static Pattern pattern = Pattern.compile("\\((\\d{4}),(\\d{4})\\)");
+    private final static Pattern pattern = Pattern.compile("\\(([\\dA-Fa-f]{4}),([\\dA-Fa-f]{4})\\)");
 
     @Override
     public Tag parse(@NotNull Element element) throws ParserException, XPathExpressionException, IllegalArgumentException, NullPointerException {
