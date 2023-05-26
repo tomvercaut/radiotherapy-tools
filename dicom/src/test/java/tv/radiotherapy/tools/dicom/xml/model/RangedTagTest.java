@@ -1,6 +1,7 @@
 package tv.radiotherapy.tools.dicom.xml.model;
 
 import org.junit.jupiter.api.Test;
+import tv.radiotherapy.tools.dicom.xml.model.module.Tag;
 
 import java.util.List;
 
@@ -93,4 +94,19 @@ class RangedTagTest {
         assertFalse(rt.contains(0x1234, 0x5700));
     }
 
+    @Test
+    void givenNonRangedTag_whenToTag_thenReturnValidTag() {
+        var rt = RangedTag.create(0x1234, 0x5678);
+        var ot = rt.toTag();
+        assertTrue(ot.isPresent());
+        var tag = ot.get();
+        assertEquals(new Tag(0x1234, 0x5678), tag);
+    }
+
+    @Test
+    void givenRange_whenToTag_thenOptionalTagIsEmpty() {
+        var rt = RangedTag.create("(1234,56xx)");
+        var ot = rt.toTag();
+        assertTrue(ot.isEmpty());
+    }
 }

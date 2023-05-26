@@ -1,6 +1,9 @@
 package tv.radiotherapy.tools.dicom.xml.model;
 
 import org.jetbrains.annotations.NotNull;
+import tv.radiotherapy.tools.dicom.xml.model.module.Tag;
+
+import java.util.Optional;
 
 /**
  * A ranged DICOM tag consists of a group and element Range.
@@ -73,5 +76,16 @@ public record RangedTag(
      */
     public boolean contains(int group, int element) {
         return this.group.contains(group) && this.element.contains(element);
+    }
+
+    /**
+     * Create a Tag from a RangedTag instance.
+     * @return A tag if the RangedTag instance does not contain a range, otherwise an empty Optional is returned.
+     */
+    public Optional<Tag> toTag() {
+        if (!isRanged()) {
+            return Optional.of(new Tag(this.group.min(), this.element.min()));
+        }
+        return Optional.empty();
     }
 }
