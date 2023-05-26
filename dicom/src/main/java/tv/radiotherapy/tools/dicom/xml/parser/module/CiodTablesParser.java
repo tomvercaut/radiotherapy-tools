@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 
 public class CiodTablesParser implements Parser<List<Ciod>>, ParallelAlgorithm {
     private static final Logger logger = LogManager.getLogger(CiodTablesParser.class);
-    private static boolean isThreadedAlgorithm = false;
+    private boolean isThreadedAlgorithm = false;
 
     @Override
     public List<Ciod> parse(@NotNull Element element) throws ParserException, XPathExpressionException, IllegalArgumentException, NullPointerException {
