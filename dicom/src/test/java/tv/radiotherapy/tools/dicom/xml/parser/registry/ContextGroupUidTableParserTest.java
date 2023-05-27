@@ -12,12 +12,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ContextGroupUidTableParserTest {
+    private static final char ZWSP = '\u200B';
 
     private static String getXml() {
         @Language("XML")
@@ -52,103 +52,118 @@ public class ContextGroupUidTableParserTest {
                             <tbody>
                                 <tr valign="top">
                                     <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_a61be4bd-e095-42e3-a495-ba9619ba5c8d">1.2.840.10008.6.​1.​1</para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_63982966-ed69-44ad-965e-96bd990525f5">
-                                            <olink targetdoc="PS3.16" targetptr="sect_CID_2" xrefstyle="select: labelnumber"/>
-                                        </para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_7f76a133-67d7-4b7e-9457-b477713b940c">
-                                            <olink targetdoc="PS3.16" targetptr="sect_CID_2" xrefstyle="select: title"/>
-                                        </para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_1d4c9d73-ac2c-40e5-b62d-922e5e9d3c16"/>
-                                    </td>
-                                </tr>
-                                <tr valign="top">
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_e88b945b-0f4b-4c8e-ab80-a392bfa04d77">1.2.840.10008.6.​1.​2</para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_faceabc6-c107-4bc2-ac87-02ef734fa134">
-                                            <olink targetdoc="PS3.16" targetptr="sect_CID_4" xrefstyle="select: labelnumber"/>
-                                        </para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_eec7e204-4006-4a18-a5eb-e593a97ce483">
-                                            <olink targetdoc="PS3.16" targetptr="sect_CID_4" xrefstyle="select: title"/>
-                                        </para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_7566a522-df22-4b5c-ad16-89ba21054b60"/>
-                                    </td>
-                                </tr>
-                                <tr valign="top">
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_2b11e719-a926-48ce-aaca-37938ae4e91e">1.2.840.10008.6.​1.​3</para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_d533cde1-c4bc-4d44-8c8b-c2a8ec0abc8a">
-                                            <olink targetdoc="PS3.16" targetptr="sect_CID_5" xrefstyle="select: labelnumber"/>
-                                        </para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_255e194b-ae7c-40ad-9223-67a86fc89a17">
-                                            <olink targetdoc="PS3.16" targetptr="sect_CID_5" xrefstyle="select: title"/>
-                                        </para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_0a6173b7-15cd-4e92-a1dc-a18b127c39f5"/>
-                                    </td>
-                                </tr>
-                               \s
-                                <tr valign="top">
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_1281b4af-53c2-49f0-b409-cbe84505683f">
-                <emphasis role="italic">1.2.840.10008.6.​1.​945</emphasis>
-                </para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_867bb42e-0f39-4409-aa19-9c87b707c01b"/>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_aeff10ec-5ecd-4780-bd8d-67f59fbbef6d"/>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_ba7b3a9f-1133-4099-bbe9-03027e88804d">
-                <emphasis role="italic">Retired</emphasis>
-                </para>
-                                    </td>
-                                </tr>
-                                <tr valign="top">
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_5b50ad34-fcc8-4970-99a5-1dd0fc4b2d37">
-                <emphasis role="italic">1.2.840.10008.6.​1.​946</emphasis>
-                </para>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_9ea083e3-8175-40a5-be84-31a39e09705f"/>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_024f236d-510f-45ba-ab5b-1aae9a13ba6a"/>
-                                    </td>
-                                    <td align="left" colspan="1" rowspan="1">
-                                        <para xml:id="para_64b5da9d-d892-4127-be1c-0fd9e54d1371">
-                <emphasis role="italic">Retired</emphasis>
-                </para>
-                                    </td>
-                                </tr>
-                                </tbody>
-                                </table>
-                               </book>\s""";
+                                        <para xml:id="para_a61be4bd-e095-42e3-a495-ba9619ba5c8d">1.2.840.10008.6.""";
+        xml += ZWSP + "1." + ZWSP;
+        xml += """
+                1</para>
+                                                    </td>
+                                                    <td align="left" colspan="1" rowspan="1">
+                                                        <para xml:id="para_63982966-ed69-44ad-965e-96bd990525f5">
+                                                            <olink targetdoc="PS3.16" targetptr="sect_CID_2" xrefstyle="select: labelnumber"/>
+                                                        </para>
+                                                    </td>
+                                                    <td align="left" colspan="1" rowspan="1">
+                                                        <para xml:id="para_7f76a133-67d7-4b7e-9457-b477713b940c">
+                                                            <olink targetdoc="PS3.16" targetptr="sect_CID_2" xrefstyle="select: title"/>
+                                                        </para>
+                                                    </td>
+                                                    <td align="left" colspan="1" rowspan="1">
+                                                        <para xml:id="para_1d4c9d73-ac2c-40e5-b62d-922e5e9d3c16"/>
+                                                    </td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <td align="left" colspan="1" rowspan="1">
+                                                        <para xml:id="para_e88b945b-0f4b-4c8e-ab80-a392bfa04d77">1.2.840.10008.6.""";
+        xml += ZWSP + "1." + ZWSP;
+        xml += """
+                2</para>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_faceabc6-c107-4bc2-ac87-02ef734fa134">
+                                                        <olink targetdoc="PS3.16" targetptr="sect_CID_4" xrefstyle="select: labelnumber"/>
+                                                    </para>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_eec7e204-4006-4a18-a5eb-e593a97ce483">
+                                                        <olink targetdoc="PS3.16" targetptr="sect_CID_4" xrefstyle="select: title"/>
+                                                    </para>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_7566a522-df22-4b5c-ad16-89ba21054b60"/>
+                                                </td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_2b11e719-a926-48ce-aaca-37938ae4e91e">1.2.840.10008.6.""";
+        xml += ZWSP + "1." + ZWSP;
+        xml += """
+                3</para>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_d533cde1-c4bc-4d44-8c8b-c2a8ec0abc8a">
+                                                        <olink targetdoc="PS3.16" targetptr="sect_CID_5" xrefstyle="select: labelnumber"/>
+                                                    </para>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_255e194b-ae7c-40ad-9223-67a86fc89a17">
+                                                        <olink targetdoc="PS3.16" targetptr="sect_CID_5" xrefstyle="select: title"/>
+                                                    </para>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_0a6173b7-15cd-4e92-a1dc-a18b127c39f5"/>
+                                                </td>
+                                            </tr>
+                                           \s
+                                            <tr valign="top">
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_1281b4af-53c2-49f0-b409-cbe84505683f">
+                            <emphasis role="italic">1.2.840.10008.6.""";
+        xml += ZWSP + "1." + ZWSP;
+        xml += """
+                945</emphasis>
+                            </para>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_867bb42e-0f39-4409-aa19-9c87b707c01b"/>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_aeff10ec-5ecd-4780-bd8d-67f59fbbef6d"/>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_ba7b3a9f-1133-4099-bbe9-03027e88804d">
+                            <emphasis role="italic">Retired</emphasis>
+                            </para>
+                                                </td>
+                                            </tr>
+                                            <tr valign="top">
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_5b50ad34-fcc8-4970-99a5-1dd0fc4b2d37">
+                            <emphasis role="italic">1.2.840.10008.6.""";
+        xml += ZWSP + "1." + ZWSP;
+        xml += """
+                946</emphasis>
+                            </para>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_9ea083e3-8175-40a5-be84-31a39e09705f"/>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_024f236d-510f-45ba-ab5b-1aae9a13ba6a"/>
+                                                </td>
+                                                <td align="left" colspan="1" rowspan="1">
+                                                    <para xml:id="para_64b5da9d-d892-4127-be1c-0fd9e54d1371">
+                            <emphasis role="italic">Retired</emphasis>
+                            </para>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            </table>
+                                           </book>\s""";
         return xml;
     }
 
     @Test
-    void parse() throws ParserException, XPathExpressionException, ExecutionException, InterruptedException, IOException, ParserConfigurationException, SAXException {
+    void parse() throws ParserException, XPathExpressionException, InterruptedException, IOException, ParserConfigurationException, SAXException {
         var doc = DocumentReader.readXmlString(getXml());
         var root = doc.getDocumentElement();
         var registry = new ContextGroupUidTableParser().parse(root, new ContextGroupUidTableRowParser());
@@ -162,7 +177,6 @@ public class ContextGroupUidTableParserTest {
         );
         for (var item : expected) {
             assertTrue(registry.contains(item));
-
         }
     }
 }
